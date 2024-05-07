@@ -99,7 +99,7 @@ int MPPT(int d) {
 }
 
 
-void pwmDCtoDC() {
+void pwmDCtoDC(int dutycycle) {
   ledcWrite(channelDCtoDC, dutycycle_DC_to_DC);
 }
 
@@ -134,7 +134,7 @@ void loop() {
   int diff_D = abs((dutycycle_DC_to_DC_prediction / dutycycle_DC_to_DC)*100); 
 
   //pwm functions
-  pwmDCtoDC();
+  pwmDCtoDC(dutycycle_DC_to_DC);
   pwmDCtoAC(freq, dutycycle_DC_to_AC);
 
 
