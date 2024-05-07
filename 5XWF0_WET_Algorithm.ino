@@ -105,20 +105,19 @@ void pwmDCtoDC() {
 
 void pwmDCtoAC(int freq, int dutycycle) {
   int t_tot = 1/freq;
-  int t_on = t_tot*dutycycle;
+  int t_on = t_tot*(1-dutycycle);
   int t_off = t_tot-t_on;
-  // on for output 1 and low for output 2
-  digitalWrite(pin_dcac_pwm_output, HIGH);
+  // PWM for output 1
+  ledcWrite(channelDCtoAC, dutycycle_DC_to_AC);
+  //  low for output 2
   digitalWrite(pin_dcac_pwm_complement_output, LOW);
   //time on - deadtime
   delayMicroseconds(t_on-0.1*t_tot); 
-  // on for output 2 and low for output 1
+  // high for output 2
   digitalWrite(pin_dcac_pwm_output, LOW);
   digitalWrite(pin_dcac_pwm_complement_output, HIGH);
-  //time off + deadtime
-  delayMicroseconds(t_off+0.1*t_tot);
-
-  //using LEDC write -- >ledcWrite(channelDCtoAC, dutycycle_DC_to_AC); and ledcWrite(channelDCtoAC2, 1-dutycycle_DC_to_AC);
+  //time off - deadtime
+  delayMicroseconds(t_off-0.1*t_tot);
   
 }
 
