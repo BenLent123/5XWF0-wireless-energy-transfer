@@ -113,7 +113,7 @@ void DCtoAC_PWM(int freq, int dutycycle){
   time_in_miliseconds = (1/(frequency_of_timer_1))*1000+dead_time_timer_1_milisec;
  if (millis() - current_time_timer_1 > time_in_miliseconds*dutycycle) //check if time interval has passed 
   {
-      current_time_timer_1 =  current_time_timer_1 + time_in_miliseconds;
+      current_time_timer_1 =  current_time_timer_1 + time_in_miliseconds*dutycycle;
       //change state
       if (DCtoAC_pwm_pin_state == LOW)
       { 
@@ -133,7 +133,7 @@ void DCtoAC_PWM_Complement(int freq, int dutycycle){
   time_in_miliseconds = (1/(frequency_of_timer_2))*1000-dead_time_timer_2_milisec; // converts frequency to the time period in miliseconds
  if (millis() - current_time_timer_2 > (time_in_miliseconds*dutycycle)) //check if time interval has passed where time interval is time period * dutycycle 
   {
-      current_time_timer_2 =  current_time_timer_2 + time_in_miliseconds;
+      current_time_timer_2 =  current_time_timer_2 + time_in_miliseconds*dutycycle;
       //change state --> state machine 
       if (DCtoAC_pwm_pin_complement_state == LOW)
       { 
