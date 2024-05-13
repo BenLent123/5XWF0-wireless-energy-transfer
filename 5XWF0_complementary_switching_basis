@@ -11,9 +11,6 @@ unsigned long dead_time_timer_2_milisec = 15; //dead time in miliseconds
 const int pin_dcac_pwm_output = 2;    // pin for output
 const int pin_dcac_pwm_complement_output = 3;    // pin for output 
 const int freq_ac = 40000;
-const int resolution = 8;
-const int channelDCtoAC = 1;
-const int channelDCtoAC2 = 2;
 //variables
   //DCTOAC
 int dutycycle_DC_to_AC=0.5;
@@ -73,7 +70,7 @@ void DCtoAC_PWM_Complement(int freq, int dutycycle){
 
 
 void loop() {
-  DCtoAC_PWM(freq, dutycycle_DC_to_AC);
-  DCtoAC_PWM_Complement(freq, dutycycle_DC_to_AC);
+  DCtoAC_PWM(freq_ac, dutycycle_DC_to_AC);
+  DCtoAC_PWM_Complement(freq_ac, dutycycle_DC_to_AC);
 
 }
