@@ -16,7 +16,8 @@ const int pin_dcdc_vo_measurement = 4; // pin for input
 const int pin_dcac_vo_measurement = 5; // pin for input
 const int pin_dcdc_vi_measurement = 4; // pin for input
   //values
-const int freq = 40000;  //freq
+const int freq_ac = 40000;
+const int freq_dc = 40000;  //freq
 const int resolution = 8;
 const int channelDCtoDC = 0;
 const int channelDCtoAC = 1;
@@ -26,7 +27,6 @@ const int measurement_resistor_DCAC = 10000;
 //variables
   //DCTODC
 int dutycycle_DC_to_DC = 50;
-float dutycycle_DC_to_DC_prediction = 0;
 float vo_dcdc_measurment = 0;
 float vo_dcdc_constant = 20;
 float i2 = 0;
@@ -35,7 +35,7 @@ float v1 = 0;
 float i1 = 0;
 float vd_dcdc_measurment = 0;
   //DCTOAC
-int dutycycle_DC_to_AC=0;
+int dutycycle_DC_to_AC=0.5;
 float v_dcac_measurement = 0;
 int DCtoAC_pwm_pin_state = LOW;
 int DCtoAC_pwm_pin_complement_state = HIGH;
@@ -59,10 +59,6 @@ void setup(){
   ledcAttachPin(pin_dcdc_pwm_output, channelDCtoDC);
   ledcAttachPin(pin_dcac_pwm_output, channelDCtoAC);
   ledcAttachPin(pin_dcac_pwm_complement_output, channelDCtoAC2);
-
-  // one time start of prediction
-  dutycycle_DC_to_DC_prediction = DC_to_DC_converter_predicted_output(dutycycle_DC_to_DC_prediction);
-  dutycycle_DC_to_DC= dutycycle_DC_to_DC_prediction;
 }
 
 void measure() {
@@ -91,61 +87,28 @@ int Voltage_stability(int d) {
     return d;
 }
 
-int DC_to_DC_converter_predicted_output(int d){
-  d =  (vo_dcdc_constant)/(vd_dcdc_measurment-vo_dcdc_constant); //predict duty cycle required to get 20 volts using equation
-  return d;
-}
-
-int MPPT_DC(int d) {
-  float v2 = vo_dcdc_measurment;
-  float i2 = i_dcdc_measurement; 
-  float p2 = v2 * i2;
-  if (p2 - p1 == 0) 
-  {
-    d=d+0.1;
-  } 
-  else if (p2 - p1 > 0) 
-    {
-      if (v2 - v1 > 0) {
-        d=d+0.1;
-      } 
-      else {
-        d=d-0.1;
-      }
-    } 
-    else if (v2 - v1 > 0) {
-      d=d-0.1;
-    }
-    else {
-    d=d+0.1;
-    } 
-    v1 = v2;
-    i1 = i2;
-    return d;
-}
-
 int MPPT_AC(int d) {
   float v2 = v_dcac_measurment;
   float i2 = i_dcac_measurement; 
   float p2 = v2 * i2;
   if (p2 - p1 == 0) 
   {
-    d=d+0.1;
+    freq_ac=freq_ac+0.1;
   } 
   else if (p2 - p1 > 0) 
     {
       if (v2 - v1 > 0) {
-        d=d+0.1;
+        freq_ac=freq_ac+0.1;
       } 
       else {
-        d=d-0.1;
+        freq_ac=freq_ac-0.1;
       }
     } 
     else if (v2 - v1 > 0) {
-      d=d-0.1;
+      freq_ac=freq_ac-0.1;
     }
     else {
-    d=d+0.1;
+    freq_ac=freq_ac+0.1;
     } 
     v1 = v2;
     i1 = i2;
@@ -202,14 +165,8 @@ void loop() {
   measure();
 
   //calculation functions
-    //predict dutycycle using buck-boost equation
-    dutycycle_DC_to_DC_prediction = DC_to_DC_converter_predicted_output(dutycycle_DC_to_DC_prediction);
-    //change duty cycle using MPPT algorithm
-    dutycycle_DC_to_DC = MPPT_DC(dutycycle_DC_to_DC);
-    dutycycle_DC_to_AC = MPPT_DC(dutycycle_DC_to_AC);  
-    dutycycle_DC_to_DC = Voltage_stability(dutycycle_DC_to_DC); 
-    //variable to check difference of duty cycle output of equation vs MPPT --> no actual effect
-    int diff_D = abs((dutycycle_DC_to_DC_prediction / dutycycle_DC_to_DC)*100); 
+    dutycycle_DC_to_DC = Voltage_stability(dutycycle_DC_to_DC);
+     dutycycle_DC_to_AC = MPPT_DC(dutycycle_DC_to_AC);  
 
   //pwm functions
   pwmDCtoDC(dutycycle_DC_to_DC);
