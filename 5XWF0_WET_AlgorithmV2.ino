@@ -20,13 +20,11 @@ const int freq_ac = 40000;
 const int freq_dc = 40000;  //freq
 const int resolution = 8;
 const int channelDCtoDC = 0;
-const int channelDCtoAC = 1;
-const int channelDCtoAC2 = 1;
 const int measurement_resistor_DCDC = 10000;
 const int measurement_resistor_DCAC = 10000;
 //variables
   //DCTODC
-int dutycycle_DC_to_DC = 50;
+int dutycycle_DC_to_DC = 0.5;
 float vo_dcdc_measurment = 0;
 float vo_dcdc_constant = 20;
 float i2 = 0;
@@ -35,7 +33,7 @@ float v1 = 0;
 float i1 = 0;
 float vd_dcdc_measurment = 0;
   //DCTOAC
-int dutycycle_DC_to_AC=0.5;
+int dutycycle_DC_to_AC = 0.5;
 float v_dcac_measurement = 0;
 int DCtoAC_pwm_pin_state = LOW;
 int DCtoAC_pwm_pin_complement_state = HIGH;
@@ -51,14 +49,10 @@ void setup(){
   pinMode(pin_dcac_pwm_output, OUTPUT);
   
   // configure LED PWM functionalitites
-  ledcSetup(channelDCtoDC, freq, resolution);
-  ledcSetup(channelDCtoAC, freq, resolution);
-  ledcSetup(channelDCtoAC2, freq, resolution);
+  ledcSetup(channelDCtoDC, freq_dc, resolution);
 
   // attach the channel to the GPIO to be controlled
   ledcAttachPin(pin_dcdc_pwm_output, channelDCtoDC);
-  ledcAttachPin(pin_dcac_pwm_output, channelDCtoAC);
-  ledcAttachPin(pin_dcac_pwm_complement_output, channelDCtoAC2);
 }
 
 void measure() {
@@ -87,7 +81,7 @@ int Voltage_stability(int d) {
     return d;
 }
 
-int MPPT_AC(int d) {
+int MPPT_AC(int freq_ac) {
   float v2 = v_dcac_measurment;
   float i2 = i_dcac_measurement; 
   float p2 = v2 * i2;
@@ -160,17 +154,17 @@ void pwmDCtoDC(int dutycycle) {
 }
 
 void loop() {
-  /*
+  
   //measurement function
-  measure();
+    measure();
 
   //calculation functions
     dutycycle_DC_to_DC = Voltage_stability(dutycycle_DC_to_DC);
-     dutycycle_DC_to_AC = MPPT_DC(dutycycle_DC_to_AC);  
+    freq_ac = MPPT_AC(freq_ac);  
 
   //pwm functions
-  pwmDCtoDC(dutycycle_DC_to_DC);
-  DCtoAC_PWM(freq, dutycycle_DC_to_AC);
-  DCtoAC_PWM_Complement(freq, dutycycle_DC_to_AC);
-  */
+    pwmDCtoDC(dutycycle_DC_to_DC);
+    DCtoAC_PWM(freq_ac, dutycycle_DC_to_AC);
+    DCtoAC_PWM_Complement(freq_ac, dutycycle_DC_to_AC);
+  
 }
