@@ -1,6 +1,12 @@
 DCDC converter --> Duty cycle adjustments to keep 20V
+  keep dc converter at 20 volts
+
 DCAC converter --> MPPT to adjust freq AC / DUTYCYCLE
+  adjust F for skin effect and impedance JWL
+  adjust duty cycle for Vo_AC
+
 complementary switching test ????
-voltage / current sensing
-current sensor!
-Farnell 1617405 LA 55-P LEM LEM LA 55-P (50A, 12 to 15 V supply, 0.9%)
+  
+voltage / current sensing --> current sensor! and ADC
+  Farnell 1617405 LA 55-P LEM LEM LA 55-P (50A, 12 to 15 V supply, 0.9%)
+  2 current sensors 
