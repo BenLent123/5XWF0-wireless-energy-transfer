@@ -4,7 +4,6 @@
 #include "arduino.h"
 //constants
   //timer
-unsigned long frequency_of_timers = 1000;
 unsigned long dead_time_timer_1_milisec = 10; //dead time in miliseconds
 unsigned long dead_time_timer_2_milisec = 15; //dead time in miliseconds 
   //pins
