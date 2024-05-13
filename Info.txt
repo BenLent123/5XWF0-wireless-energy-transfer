@@ -1,0 +1,8 @@
+Inputs
+  DCDC output voltage -- analogread
+  DCAC output voltage -- analogread
+  DCAC output current -- current sensor
+  
+Outputs
+  DCDC unipolar PWM -- LEDCwrite
+  DCAC complementary unipolar PWM with deadtime -- with timers / Motor Control Pulse Width Modulator (MCPWM) / LEDCwrite
