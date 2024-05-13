@@ -2,4 +2,5 @@ DCDC converter --> Duty cycle adjustments to keep 20V
 DCAC converter --> MPPT to adjust freq AC
 complementary switching test ????
 voltage / current sensing
+current sensor!
 Farnell 1617405 LA 55-P LEM LEM LA 55-P (50A, 12 to 15 V supply, 0.9%)
