@@ -31,7 +31,6 @@ float i2 = 0;
 float p1 = 0;
 float v1 = 0; 
 float i1 = 0;
-float vd_dcdc_measurment = 0;
   //DCTOAC
 int dutycycle_DC_to_AC = 0.5;
 float v_dcac_measurement = 0;
@@ -58,7 +57,6 @@ void setup(){
 void measure() {
  
   //DC to DC measurements
-  vd_dcdc_measurement = analogRead(pin_dcdc_vi_measurement);
   vo_dcdc_measurement = analogRead(pin_dcdc_vo_measurement); 
     // calculate i2 using v2
     i_dcdc_measurement = vo_dcdc_measurement*measurement_resistor_DCDC; 
