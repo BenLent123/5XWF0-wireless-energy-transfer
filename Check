@@ -1,3 +1,4 @@
 DCDC converter --> Duty cycle adjustments to keep 20V
 DCAC converter --> MPPT to adjust freq AC
 complementary switching test ????
+voltage / current sensing
