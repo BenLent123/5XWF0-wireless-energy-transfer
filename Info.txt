@@ -9,6 +9,8 @@ Outputs
   DCDC unipolar PWM -- LEDCwrite --> output is 5v to 0 at 8ma
   DCAC complementary unipolar PWM with deadtime -- with timers (untested) or  Motor Control Pulse Width Modulator (MCPWM) --> output is 5v to 0 at 8ma
 
+https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/mcpwm.html#mcpwm-synchronization
+
 Loops 
   check Vout DCDC --> change dutycycle depending on the value of Vout --> check Vout
 
