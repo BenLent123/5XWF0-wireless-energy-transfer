@@ -1,9 +1,21 @@
 Inputs
-  DCDC output voltage -- analogread
-  DCAC output voltage -- analogread
-  DCAC output current -- current sensor
-  DCDC output current -- current sensor
+  DCDC input voltage -- 1 analog pin
+  DCDC output voltage -- 1 analog pin
+  DCAC output voltage -- 1 analog pin
+  DCAC output current -- current sensor in 1 analog pin
+  DCDC output current -- current sensor in 1 analog pin
   
 Outputs
-  DCDC unipolar PWM -- LEDCwrite
-  DCAC complementary unipolar PWM with deadtime -- with timers / Motor Control Pulse Width Modulator (MCPWM) / LEDCwrite
+  DCDC unipolar PWM -- LEDCwrite --> output is 5v to 0 at 8ma
+  DCAC complementary unipolar PWM with deadtime -- with timers (untested) or  Motor Control Pulse Width Modulator (MCPWM) --> output is 5v to 0 at 8ma
+
+Loops 
+  check Vout DCDC --> change dutycycle depending on the value of Vout --> check Vout
+
+  check Pout DCAC --> change dutycycle depending on the change of Pout --> check Pout
+
+Questions ?
+- do we all pins ?
+- pin DCAC --> powerloss calculation to counter skin effect
+- how do we change freqeuency in MPPT?
+- Pins for in/out needed for PCB ??
