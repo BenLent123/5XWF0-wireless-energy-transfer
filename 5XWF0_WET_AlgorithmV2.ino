@@ -3,43 +3,48 @@
 #include <stdlib.h>
 #include "arduino.h"
 //constants
-  //timer
-unsigned long dead_time_timer_1_milisec = 10; //dead time in miliseconds
-unsigned long dead_time_timer_2_milisec = 15; //dead time in miliseconds 
+const int freq_ac = 40000;
+const int freq_dc = 40000;  
+const int resolution = 8;
+const int channelDCtoDC = 0;
+const float vo_dcdc_constant = 20;
   //pins
     //outputs
 const int pin_dcdc_pwm_output = 1;    // pin for output
 const int pin_dcac_pwm_output = 2;    // pin for output
 const int pin_dcac_pwm_complement_output = 3;    // pin for output 
     //inputs
-const int pin_dcdc_vo_measurement = 4; // pin for input
-const int pin_dcac_vo_measurement = 5; // pin for input
-const int pin_dcdc_vi_measurement = 4; // pin for input
-  //values
-const int freq_ac = 40000;
-const int freq_dc = 40000;  //freq
-const int resolution = 8;
-const int channelDCtoDC = 0;
-const int measurement_resistor_DCDC = 10000;
-const int measurement_resistor_DCAC = 10000;
+const int pin_dcdc_io_measurement = 4;
+const int pin_dcac_io_measurement = 5;
+const int pin_dcdc_vo_measurement = 6; // pin for input
+const int pin_dcac_vo_measurement = 7; // pin for input
+const int pin_dcdc_vi_measurement = 8; // pin for input
+
 //variables
-  //DCTODC
+  //Dutycycles
 int dutycycle_DC_to_DC = 0.5;
-float vo_dcdc_measurment = 0;
-float vo_dcdc_constant = 20;
-float i2 = 0;
-float p1 = 0;
-float v1 = 0; 
-float i1 = 0;
-  //DCTOAC
 int dutycycle_DC_to_AC = 0.5;
-float v_dcac_measurement = 0;
+  // measurement variables
+float vd_dcdc_measurement = 0;
+float io_dcdc_measurement = 0;
+float vo_dcdc_measurement = 0;
+float vo_dcac_measurement = 0;
+float io_dcac_measurement = 0;
+  //mppt variables
+float v1 = 0;
+float i1 = 0;
+float v2 = vo_dcac_measurement;
+float i2 = io_dcac_measurement;
+float p1 = v1*i1;
+float p2 = vo_dcac_measurement*io_dcac_measurement;
+
+//timer constants and variables 
+unsigned long dead_time_timer_1_milisec = 10; //dead time in miliseconds
+unsigned long dead_time_timer_2_milisec = 15; //dead time in miliseconds 
 int DCtoAC_pwm_pin_state = LOW;
 int DCtoAC_pwm_pin_complement_state = HIGH;
-  //timers
 unsigned long current_time_timer_1 = 0; 
-unsigned long current_time_timer_2 = 0;   
-
+unsigned long current_time_timer_2 = 0; 
 
 void setup(){
   // set output mode
@@ -57,54 +62,56 @@ void setup(){
 void measure() {
  
   //DC to DC measurements
-  vo_dcdc_measurement = analogRead(pin_dcdc_vo_measurement); 
-    // calculate i2 using v2
-    i_dcdc_measurement = vo_dcdc_measurement*measurement_resistor_DCDC; 
+  vd_dcdc_measurement = analogRead(pin_dcdc_vi_measurement);
+  vo_dcdc_measurement = analogRead(pin_dcdc_vo_measurement);
+  io_dcdc_measurement = analogRead(pin_dcdc_io_measurement);
 
-  // DC to AC measurments
-  v_acdc_measurement = analogRead(pin_dcac_vo_measurement);
-    //
-    i_dcac_measurement = v_dcac_measurment*measurement_resistor_DCAC;
+  // DC to AC measurements
+  vo_dcac_measurement = analogRead(pin_dcac_vo_measurement);
+  io_dcac_measurement = analogRead(pin_dcac_io_measurement);
+    
 }
 
-int Voltage_stability(int d) {
-  if (vo_dcdc_measurment>20)
+int Voltage_stability_DCDC_output(int d) {
+  if (vo_dcdc_measurement>20)
   {
     d = d-0.1;
   }
-  else if (vo_dcdc_measurment<20)
+  else if (vo_dcdc_measurement<20)
   {
     d = d+0.1;
   }
     return d;
 }
 
-int MPPT_AC(int freq_ac) {
-  float v2 = v_dcac_measurment;
-  float i2 = i_dcac_measurement; 
-  float p2 = v2 * i2;
+int MPPT_AC(int dutycycle) {
   if (p2 - p1 == 0) 
   {
-    freq_ac=freq_ac+0.1;
+    dutycycle=dutycycle+0.1;
   } 
   else if (p2 - p1 > 0) 
     {
       if (v2 - v1 > 0) {
-        freq_ac=freq_ac+0.1;
+        dutycycle=dutycycle+0.1;
       } 
       else {
-        freq_ac=freq_ac-0.1;
+        dutycycle=dutycycle-0.1;
       }
     } 
     else if (v2 - v1 > 0) {
-      freq_ac=freq_ac-0.1;
+      dutycycle=dutycycle-0.1;
     }
     else {
-    freq_ac=freq_ac+0.1;
+    dutycycle=dutycycle+0.1;
     } 
     v1 = v2;
     i1 = i2;
-    return d;
+    return dutycycle;
+}
+
+
+void DCtoDC_PWM(int dutycycle) {
+  ledcWrite(channelDCtoDC, dutycycle_DC_to_DC);
 }
 
 void DCtoAC_PWM(int freq, int dutycycle){
@@ -147,22 +154,18 @@ void DCtoAC_PWM_Complement(int freq, int dutycycle){
   }
 }
 
-void pwmDCtoDC(int dutycycle) {
-  ledcWrite(channelDCtoDC, dutycycle_DC_to_DC);
-}
-
 void loop() {
   
   //measurement function
     measure();
 
   //calculation functions
-    dutycycle_DC_to_DC = Voltage_stability(dutycycle_DC_to_DC);
-    freq_ac = MPPT_AC(freq_ac);  
+    dutycycle_DC_to_DC = Voltage_stability_DCDC_output(dutycycle_DC_to_DC);
+    dutycycle_DC_to_AC = MPPT_AC(dutycycle_DC_to_AC);  
 
   //pwm functions
-    pwmDCtoDC(dutycycle_DC_to_DC);
-    DCtoAC_PWM(freq_ac, dutycycle_DC_to_AC);
+    DCtoDC_PWM(dutycycle_DC_to_DC);
     DCtoAC_PWM_Complement(freq_ac, dutycycle_DC_to_AC);
+    DCtoAC_PWM(freq_ac, dutycycle_DC_to_AC);
   
 }
