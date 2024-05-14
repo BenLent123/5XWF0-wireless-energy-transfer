@@ -14,11 +14,11 @@ const int pin_dcdc_pwm_output = 1;    // pin for output
 const int pin_dcac_pwm_output = 2;    // pin for output
 const int pin_dcac_pwm_complement_output = 3;    // pin for output 
     //inputs
-const int pin_dcdc_io_measurement = 4;
-const int pin_dcac_io_measurement = 5;
-const int pin_dcdc_vo_measurement = 6; // pin for input
-const int pin_dcac_vo_measurement = 7; // pin for input
-const int pin_dcdc_vi_measurement = 8; // pin for input
+const int pin_dcdc_io_measurement = 4; // output current of DCDC
+const int pin_dcac_io_measurement = 5; // output current of DCAC
+const int pin_dcdc_vo_measurement = 6; // output voltage of DCDC
+const int pin_dcac_vo_measurement = 7; // input voltage of DCDC
+const int pin_dcdc_vi_measurement = 8; // output voltage of DCDC
 
 //variables
   //Dutycycles
