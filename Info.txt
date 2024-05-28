@@ -1,23 +1,13 @@
 Inputs
   DCDC input voltage -- 1 analog pin
+  DCDC input current -- current sensor in 1 analog pin
   DCDC output voltage -- 1 analog pin
+  DCDC output current -- current sensor in 1 analog pin
+----- ///////////////////OPTIONAL\\\\\\\\\\\\\\-------------
   DCAC output voltage -- 1 analog pin
   DCAC output current -- current sensor in 1 analog pin
-  DCDC output current -- current sensor in 1 analog pin
-  
+
 Outputs
-  DCDC unipolar PWM -- LEDCwrite --> output is 5v to 0 at 8ma
-  DCAC complementary unipolar PWM with deadtime -- with timers (untested) or  Motor Control Pulse Width Modulator (MCPWM) --> output is 5v to 0 at 8ma
+  unipolar PWM to DCDC mosfet driver 
+  complementary unipolar PWM with deadtime to DCAC mosfet drivers
 
-https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/mcpwm.html#mcpwm-synchronization
-
-Loops 
-  check Vout DCDC --> change dutycycle depending on the value of Vout --> check Vout
-
-  check Pout DCAC --> change dutycycle depending on the change of Pout --> check Pout
-
-Questions ?
-- do we all pins ?
-- pin DCAC --> powerloss calculation to counter skin effect
-- how do we change freqeuency in MPPT?
-- Pins for in/out needed for PCB ??
