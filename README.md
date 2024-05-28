@@ -1,1 +1,1 @@
-This code is for an esp32 or arduino to control a DC to DC and DC to AC converter for MPPT and general energy flow. The main goal is to achieve a stable output AC power to allow for coils to wireless transmit. 
+
