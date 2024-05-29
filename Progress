@@ -12,7 +12,6 @@
 -main function finalized -> not done
 -test entire code base -> not done
 
-
 CURRENT task for 30.05.2024
 
 - test ADC and PWM custom 
@@ -20,3 +19,9 @@ CURRENT task for 30.05.2024
 - make load detection
 -seperate c and h files for PWM/ADC/ALGO (HALFWAY)
 - finish main function
+
+TALK about:
+- need for 6 ADC pins
+- TA recommends 4 
+- DCAC ouput pins dont add anything beyond losses of DCAC --> "overkill"
+- load detection --> alot of current draw from second coil when it works can be seen inbetween DCDC/DCAC
