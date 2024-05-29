@@ -1,0 +1,17 @@
+- MPPT algo chosen -> done
+- ADC multichannel basic -> done and tested
+- ADC multichannel custom -> done not tested
+- pwm basic -> done and tested
+- pwm custom -> done not tested
+- MPPT algo implemented -> done not tested
+-seperate c and h files for PWM/ADC/ALGO -> done not tested
+-main function finalized -> not done
+-test entire code base -> not done
+
+
+CURRENT task for 30.05.2024
+
+- test ADC and PWM custom 
+- test MPPT algo ??
+-seperate c and h files for PWM/ADC/ALGO (HALFWAY)
+- finish main function
