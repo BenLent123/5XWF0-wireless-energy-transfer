@@ -3,3 +3,4 @@
 - use ADC1 meas V1 and I1 for MPPT 
 - current draw increasing by alot = load
 - v2 and i2 can be used to check power into coils and more accuray
+- deadtime function --> make !
