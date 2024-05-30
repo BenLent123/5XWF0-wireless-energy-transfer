@@ -1,3 +1,4 @@
+OLD PROGRESS
 - PINS configured -> done
 - LED onboard config -> done
 - LED tested -> not done
@@ -12,16 +13,12 @@
 -main function finalized -> not done
 -test entire code base -> not done
 
-CURRENT task for 30.05.2024
-
-- test ADC and PWM custom 
-- test MPPT algo ??
-- make load detection
--seperate c and h files for PWM/ADC/ALGO (HALFWAY)
-- finish main function
-
-TALK about:
-- need for 6 ADC pins
-- TA recommends 4 
-- DCAC ouput pins dont add anything beyond losses of DCAC --> "overkill"
-- load detection --> alot of current draw from second coil when it works can be seen inbetween DCDC/DCAC
+CURRENT PROGRESS
+- MPPT coded -> done
+- ADC coded -> done
+- PWM coded -> done
+- all stuff linked -> done
+- main loop -> done
+- frequency tuning -> not done
+- tested -> not done
+- check what Vin Iin DCDC gives us -> not done
