@@ -15,10 +15,10 @@
 #include "LED.h"
 
 ////ADC measurements
-extern float voltage_meas_adc1;
-extern float current_meas_adc1;
-extern float voltage_meas_adc2;
-extern float current_meas_adc2;
+extern float voltage_meas_adc1 //Vdcdc in
+extern float current_meas_adc1; //Idcdc in
+extern float voltage_meas_adc2; //Vdcdc out
+extern float current_meas_adc2; //Idcdc out
 int8_t LEDstate = 0;
 int8_t LOADstate = 0;
 int32_t PWM_Freq_DCAC = 80000;
@@ -27,12 +27,16 @@ float PWM_DutyC_DCAC = 50;
 float PWM_DutyC_DCDC = 50;
 int32_t over_voltage_and_current_true = 0;
 
-void setup(){
+void sysinit(){
 	calibration();
+}
+
+void setup(){
 	SetBaseTime();
 	SetBaseFreq(PWM_Freq_DCAC,PWM_Freq_DCDC);
 	SetBaseDutyC(PWM_DutyC_DCAC, PWM_DutyC_DCDC);
-	initializeADC();
+	SetBaseTime();
+    initializeADC();
 }
 
 void loop(){

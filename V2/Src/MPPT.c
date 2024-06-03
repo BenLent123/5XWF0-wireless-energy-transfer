@@ -27,10 +27,10 @@ float INC_MPPT_Algorithm(float voltage_meas,float current_meas,float dutycycle){
 		}
 
 		if (deltaI>0){
-			 dutycycle = dutycycle + 0.5;
+			 dutycycle = dutycycle + 0.01;
 			 return dutycycle;
 		}
-		dutycycle = dutycycle - 0.5;
+		dutycycle = dutycycle - 0.01;
 		return dutycycle;
 	}
 
@@ -39,11 +39,11 @@ float INC_MPPT_Algorithm(float voltage_meas,float current_meas,float dutycycle){
 	}
 
 	if ((current_meas + (deltaI)/(deltaV)*voltage_meas) > 0){
-		dutycycle = dutycycle-0.5;
+		dutycycle = dutycycle-0.01;
 		return dutycycle;
 		}
 	else {
-		dutycycle = dutycycle+0.5;
+		dutycycle = dutycycle+0.01;
 		return dutycycle;
 	}
 

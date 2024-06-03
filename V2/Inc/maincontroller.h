@@ -8,6 +8,7 @@
 #ifndef INC_MAINCONTROLLER_H_
 #define INC_MAINCONTROLLER_H_
 
+void sysinit();
 
 void setup();
 

@@ -113,7 +113,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  setup();
+  sysinit();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -126,8 +126,7 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  void SetBaseTime();
-  void initializeADC();
+ setup();
 
   /* USER CODE END 2 */
 
