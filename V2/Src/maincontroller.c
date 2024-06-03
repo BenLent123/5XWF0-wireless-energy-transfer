@@ -15,7 +15,7 @@
 #include "LED.h"
 
 ////ADC measurements
-extern float voltage_meas_adc1 //Vdcdc in
+extern float voltage_meas_adc1; //Vdcdc in
 extern float current_meas_adc1; //Idcdc in
 extern float voltage_meas_adc2; //Vdcdc out
 extern float current_meas_adc2; //Idcdc out
@@ -35,7 +35,7 @@ void setup(){
 	SetBaseTime();
 	SetBaseFreq(PWM_Freq_DCAC,PWM_Freq_DCDC);
 	SetBaseDutyC(PWM_DutyC_DCAC, PWM_DutyC_DCDC);
-   	initializeADC();
+    initializeADC();
 }
 
 void loop(){
