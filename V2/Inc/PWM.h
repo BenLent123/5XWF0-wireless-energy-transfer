@@ -17,11 +17,15 @@
 
 void SetBaseTime();
 
-void setBaseFreq(int PWM_Freq_DCAC, int PWM_Freq_DCDC);
+void SetBaseFreq(int PWM_Freq_DCAC, int PWM_Freq_DCDC);
 
-void setBaseDutyC(float PWM_DutyC_DCAC, float PWM_DutyC_DCDC);
+void SetBaseDutyC(float PWM_DutyC_DCAC, float PWM_DutyC_DCDC);
 
-void freqtuning();
+//void freqtuning();
+
+void PWMoffSaftey();
+
+void StartPWM();
 
 void PWMdutyCcontroller(float PWM_DutyC_DCDC);
 

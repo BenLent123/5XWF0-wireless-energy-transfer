@@ -13,12 +13,12 @@
 //variables for MPPT
 float current_old = 0;
 float voltage_old = 0;
-float INC_MPPT_Algorithm(float voltage_meas_adc2,float current_meas_adc2,float dutycycle){
+float INC_MPPT_Algorithm(float voltage_meas,float current_meas,float dutycycle){
 
 	//Incremental Conductance MPPT algorithm can be found and explained online
 	// checks deltas of output Voltage and current as well as incremental changes DI/DV
-	float deltaI = current_meas_adc2 - current_old;
-	float deltaV = voltage_meas_adc2 - voltage_old;
+	float deltaI = current_meas - current_old;
+	float deltaV = voltage_meas - voltage_old;
 
 
 	if (deltaV == 0){
@@ -34,11 +34,11 @@ float INC_MPPT_Algorithm(float voltage_meas_adc2,float current_meas_adc2,float d
 		return dutycycle;
 	}
 
-	if ((current_meas_adc2 + (deltaI)/(deltaV)*voltage_meas_adc2) == 0){
+	if ((current_meas + (deltaI)/(deltaV)*voltage_meas) == 0){
 		return dutycycle;
 	}
 
-	if ((current_meas_adc2 + (deltaI)/(deltaV)*voltage_meas_adc2) > 0){
+	if ((current_meas + (deltaI)/(deltaV)*voltage_meas) > 0){
 		dutycycle = dutycycle-0.5;
 		return dutycycle;
 		}
@@ -47,7 +47,10 @@ float INC_MPPT_Algorithm(float voltage_meas_adc2,float current_meas_adc2,float d
 		return dutycycle;
 	}
 
-	current_old = current_meas_adc2;
-	voltage_old = voltage_meas_adc2;
+	current_old = current_meas;
+	voltage_old = voltage_meas;
 
 }
+
+
+
