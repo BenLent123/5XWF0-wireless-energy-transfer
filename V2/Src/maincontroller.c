@@ -35,8 +35,7 @@ void setup(){
 	SetBaseTime();
 	SetBaseFreq(PWM_Freq_DCAC,PWM_Freq_DCDC);
 	SetBaseDutyC(PWM_DutyC_DCAC, PWM_DutyC_DCDC);
-	SetBaseTime();
-    initializeADC();
+   	initializeADC();
 }
 
 void loop(){
