@@ -36,6 +36,7 @@ void setup(){
 	SetBaseFreq(PWM_Freq_DCAC,PWM_Freq_DCDC);
 	SetBaseDutyC(PWM_DutyC_DCAC, PWM_DutyC_DCDC);
     initializeADC();
+    StartPWM();
 }
 
 void loop(){
@@ -53,7 +54,6 @@ void loop(){
 	else if (over_voltage_and_current_true == 0){
 		PWM_DutyC_DCDC = INC_MPPT_Algorithm(voltage_meas_adc1,current_meas_adc1,PWM_DutyC_DCDC);
 		PWMdutyCcontroller(PWM_DutyC_DCDC);
-		StartPWM();
 	}
 
 }
