@@ -1,0 +1,9 @@
+DONE
+- mppt
+- load detection (somewhat)
+- over current / voltage protection
+- dynamic PWM
+- adc measurements
+- code flow
+- sysinit / setup
+
