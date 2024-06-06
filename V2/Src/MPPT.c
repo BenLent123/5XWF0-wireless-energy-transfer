@@ -4,7 +4,6 @@
  *  Created on: 29.05.2024
  *      Author: Ben
  */
-
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
@@ -14,6 +13,7 @@
 float current_old = 0;
 float voltage_old = 0;
 //float power_old = 0;
+
 float INC_MPPT_Algorithm(float voltage_meas,float current_meas,float dutycycle){
 
 	//Incremental Conductance MPPT algorithm can be found and explained online
@@ -54,7 +54,7 @@ float INC_MPPT_Algorithm(float voltage_meas,float current_meas,float dutycycle){
 
 }
 
-//float PnO_MPPT(float voltage_meas,float current_meas,float dutycycle){
+//float PertandObserve_MPPT(float voltage_meas,float current_meas,float dutycycle){
 // float power = voltage_meas * current_meas;
 // if (power-power_old == 0){
 //
@@ -64,10 +64,12 @@ float INC_MPPT_Algorithm(float voltage_meas,float current_meas,float dutycycle){
 //		 dutycycle = dutycycle + 0.01;
 //
 //	 }
+//
 //	 dutycycle = dutycycle - 0.01;
 //
 // }
 // if (voltage_meas - voltage_old > 0){
+//
 //	 dutycycle = dutycycle - 0.01;
 //
 // }

@@ -23,6 +23,6 @@ void initializeADC();
 void HAL_ADC_ConvCpltCallback();
 void calibration();
 int voltageAndCurrentLimit();
-int currentMeasFunc(float current_meas);
+void load_detection_measfunc(float current_meas);
 
 #endif /* SRC_ADC_H_ */

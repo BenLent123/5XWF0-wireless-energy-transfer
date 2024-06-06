@@ -7,9 +7,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#include "stdbool.h"
 #include "ADC.h"
 #include "main.h"
+#include "LED.h"
 
 ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc2;
@@ -46,7 +46,7 @@ int voltageAndCurrentLimit(){
 	if (current_meas_adc1 > 10){
 		return 1;
 	}
-	if (voltage_meas_adc1>30){
+	if (voltage_meas_adc1>50){
 		return 1;
 	}
 
@@ -54,14 +54,16 @@ int voltageAndCurrentLimit(){
 
 }
 
-int currentMeasFunc(float current_meas){
+void load_detection_measfunc(float current_meas){
 int deltaI = current_meas-old_current_meas;
 int precentage_deltaI = (int)current_meas % (int)old_current_meas;
 	if (deltaI > 0 && precentage_deltaI > 2){
-		return 1 ;
+
+			LEDon();
+
 	}
 		else{
-			return 0;
+			LEDoff();
 		}
 }
 
