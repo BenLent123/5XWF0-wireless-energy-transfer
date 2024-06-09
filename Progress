@@ -6,8 +6,9 @@ DONE
 - adc measurements
 - code flow
 - sysinit / setup
+- load detection --> needs testing
 
 
 TO CHECK!
-- LOAD DETECION????
 - MPPT --> maybe P and O instead of Incremental conductance
+- remove 1 current sensor from code
