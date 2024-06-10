@@ -1,13 +1,15 @@
 Inputs
-  DCDC input voltage -- 1 analog pin
+  DCDC input voltage -- 1 analog pin 
   DCDC input current -- current sensor in 1 analog pin
   DCDC output voltage -- 1 analog pin
-  DCDC output current -- current sensor in 1 analog pin
------ ///////////////////OPTIONAL\\\\\\\\\\\\\\-------------
-  DCAC output voltage -- 1 analog pin
-  DCAC output current -- current sensor in 1 analog pin
-
 Outputs
   unipolar PWM to DCDC mosfet driver 
   complementary unipolar PWM with deadtime to DCAC mosfet drivers
 
+PINS on nucleo
+A5 - PWM dcdc
+A0 - voltage in dcdc
+A1 - current in dcdc
+A3 - voltage out dcdc 
+A6 - PWM dcac
+D9 - PWM* dcac
