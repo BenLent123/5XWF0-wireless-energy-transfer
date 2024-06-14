@@ -12,3 +12,7 @@ DONE
 TO CHECK!
 - MPPT --> maybe P and O instead of Incremental conductance
 - CHECK DEADTIME
+
+
+
+load detection via dcac / if load detected then flag pin on dcdc ! dcdc conv = 0 dutycycle during load detection 
