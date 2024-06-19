@@ -1,0 +1,4 @@
+There are several different versions of this code
+PWM pure --> only drives the circuit
+PWM ADC --> implements the ADC functions to read voltages and currents --> used to make sure circuit does not pull more than Vmax Imax (increments Dutycycle to reach just below Pmax)
+PWM MPPT --> Uses the ADC from PWM ADC to make an MPPT algorithm (INC) Incremental conductance is implemented
