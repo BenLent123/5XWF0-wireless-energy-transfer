@@ -8,8 +8,8 @@ Outputs
 
 PINS on nucleo
 A5 - PWM dcdc
-A0 - voltage in dcdc
-A1 - current in dcdc
-A3 - voltage out dcdc 
+A0 - analog pin
+A1 - analog pin
+A2 - analog pin
 A6 - PWM dcac
 D9 - PWM* dcac
