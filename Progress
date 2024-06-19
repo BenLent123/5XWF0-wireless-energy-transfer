@@ -1,18 +1,13 @@
 DONE
 - mppt
-- load detection (somewhat)
 - over current / voltage protection
 - dynamic PWM
 - adc measurements
 - code flow
-- sysinit / setup
-- load detection --> needs testing
 
 
-TO CHECK!
-- MPPT --> maybe P and O instead of Incremental conductance
-- CHECK DEADTIME
-
-
-
+to make /test/optimize!
+- MPPT 
+- load detection
+- deadtime:
 load detection via dcac / if load detected then flag pin on dcdc ! dcdc conv = 0 dutycycle during load detection 
