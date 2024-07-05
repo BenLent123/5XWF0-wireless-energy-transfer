@@ -6,8 +6,9 @@ DONE
 - code flow
 
 
-to make /test/optimize!
+to /test/optimize!
 - MPPT 
 - load detection
-- deadtime:
+
+NOTES
 load detection via dcac / if load detected then flag pin on dcdc ! dcdc conv = 0 dutycycle during load detection 
